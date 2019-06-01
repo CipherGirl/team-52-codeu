@@ -16,23 +16,23 @@
 
 package com.google.codeu.servlets;
 
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
-import com.google.codeu.data.Datastore;
-import com.google.codeu.data.Message;
-import com.google.gson.Gson;
 import java.io.IOException;
-import java.util.List;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
 
-/** Handles fetching and saving {@link Message} instances. */
-@WebServlet("/messages")
-public class MessageServlet extends HttpServlet {
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+import com.google.codeu.data.Datastore;
+import com.google.codeu.data.User;
+
+/**
+ * Handles fetching and saving user data.
+ */
+@WebServlet("/about")
+public class AboutMeServlet extends HttpServlet {
 
   private Datastore datastore;
 
@@ -42,32 +42,33 @@ public class MessageServlet extends HttpServlet {
   }
 
   /**
-   * Responds with a JSON representation of {@link Message} data for a specific user. Responds with
-   * an empty array if the user is not provided.
+   * Responds with the "about me" section for a particular user.
    */
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
 
-    response.setContentType("application/json");
+    response.setContentType("text/html");
 
     String user = request.getParameter("user");
 
-    if (user == null || user.equals("")) {
-      // Request is invalid, return empty array
-      response.getWriter().println("[]");
+    if(user == null || user.equals("")) {
+      // Request is invalid, return empty response
       return;
     }
 
-    List<Message> messages = datastore.getMessages(user);
-    Gson gson = new Gson();
-    String json = gson.toJson(messages);
+    User userData = datastore.getUser(user);
 
-    response.getWriter().println(json);
+    if(userData == null || userData.getAboutMe() == null) {
+      return;
+    }
+
+    response.getOutputStream().println(userData.getAboutMe());
   }
 
-  /** Stores a new {@link Message}. */
   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  public void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
 
     UserService userService = UserServiceFactory.getUserService();
     if (!userService.isUserLoggedIn()) {
@@ -75,12 +76,12 @@ public class MessageServlet extends HttpServlet {
       return;
     }
 
-    String user = userService.getCurrentUser().getEmail();
-    String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
+    String userEmail = userService.getCurrentUser().getEmail();
+    String aboutMe = request.getParameter("about-me");
 
-    Message message = new Message(user, text);
-    datastore.storeMessage(message);
+    User user = new User(userEmail, aboutMe);
+    datastore.storeUser(user);
 
-    response.sendRedirect("/user-page.html?user=" + user);
+    response.sendRedirect("/user-page.html?user=" + userEmail);
   }
 }
