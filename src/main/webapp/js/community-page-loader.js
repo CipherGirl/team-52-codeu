@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Community Page</title>
-    <link rel="stylesheet" href="/css/main.css">
-    <script src="/js/community-page-loader.js"></script>
- <script>
-
-      /** Fetches users and adds them to the page. */
+/** Fetches users and adds them to the page. */
       function fetchUserList(){
         const url = '/user-list';
         fetch(url).then((response) => {
@@ -39,15 +31,3 @@
       function buildUI(){
        fetchUserList();
       }
-    </script>
-
-</head>
-<body onload="buildUI()">
-<div id="content">
-    <h1>Community Page</h1>
-    <p>Here is a list of every user who has posted a message:</p>
-    <hr/>
-    <ul id="list">Loading...</ul>
-</div>
-</body>
-</html>
