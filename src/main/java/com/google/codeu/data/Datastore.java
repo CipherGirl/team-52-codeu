@@ -31,7 +31,14 @@ import java.util.UUID;
 public class Datastore {
 
   private DatastoreService datastore;
-
+  
+  /** Returns the total number of messages for all users. */
+public int getTotalMessageCount(){
+  Query query = new Query("Message");
+  PreparedQuery results = datastore.prepare(query);
+  return results.countEntities(FetchOptions.Builder.withLimit(1000));
+}
+  
   public Datastore() {
     datastore = DatastoreServiceFactory.getDatastoreService();
   }
@@ -125,11 +132,4 @@ public class Datastore {
   return user;
  }
   
-}
-
-/** Returns the total number of messages for all users. */
-public int getTotalMessageCount(){
-  Query query = new Query("Message");
-  PreparedQuery results = datastore.prepare(query);
-  return results.countEntities(FetchOptions.Builder.withLimit(1000));
 }
