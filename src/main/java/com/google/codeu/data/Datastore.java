@@ -26,7 +26,7 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
+import com.google.appengine.api.datastore.FetchOptions;
 /** Provides access to the data stored in Datastore. */
 public class Datastore {
 
@@ -79,24 +79,16 @@ public class Datastore {
 
     return messages;
   }
-  public class User {
-
-  private String email;
-  private String aboutMe;
-
-  public User(String email, String aboutMe) {
-    this.email = email;
-    this.aboutMe = aboutMe;
-  }
-
-  public String getEmail(){
-    return email;
-  }
-
-  public String getAboutMe() {
-    return aboutMe;
-  }
-}
+  public Set<String> getUsers(){
+        Set<String> users = new HashSet<>();
+        Query query = new Query("Message");
+        PreparedQuery results = datastore.prepare(query);
+        for(Entity entity : results.asIterable()) {
+            users.add((String) entity.getProperty("user"));
+        }
+        return users;
+    }
+ 
   /** Stores the User in Datastore. */
  public void storeUser(User user) {
   Entity userEntity = new Entity("User", user.getEmail());
@@ -124,12 +116,13 @@ public class Datastore {
   
   return user;
  }
-  
-}
-
-/** Returns the total number of messages for all users. */
+  /** Returns the total number of messages for all users. */
 public int getTotalMessageCount(){
   Query query = new Query("Message");
   PreparedQuery results = datastore.prepare(query);
   return results.countEntities(FetchOptions.Builder.withLimit(1000));
 }
+  
+}
+
+
