@@ -114,14 +114,14 @@ public class MessageServlet extends HttpServlet {
    Document doc = Document.newBuilder().setContent(text).setType(Document.Type.PLAIN_TEXT).build();
    LanguageServiceClient languageService = LanguageServiceClient.create();
    Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
-   float score = sentiment.getScore();
+   double score = sentiment.getScore();
    languageService.close();
 
    //printing score
    System.out.println("Score: " + sentiment.getScore());
 
    //sending message code
-   Message message = new Message(user, text);
+   Message message = new Message(user, text, score);
    datastore.storeMessage(message);
 
    response.sendRedirect("/user-page.html?user=" + user);
