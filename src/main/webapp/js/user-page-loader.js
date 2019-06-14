@@ -76,6 +76,7 @@ function fetchMessages() {
       });
 }
 
+
 /**
  * Builds an element that displays the message.
  * @param {Message} message
