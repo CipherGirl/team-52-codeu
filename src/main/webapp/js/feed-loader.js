@@ -5,15 +5,23 @@
       return response.json();
     }).then((messages) => {
       const messageContainer = document.getElementById('message-container');
+      const nMessagesContainer = document.getElementById('n-message-container');
       if(messages.length == 0){
        messageContainer.innerHTML = '<p>There are no posts yet.</p>';
+       nMessagesContainer.innerHTML = '<p>There are no negative posts.</p>';
       }
       else{
        messageContainer.innerHTML = '';
+       nMessagesContainer.innerHTML = '';
       }
       messages.forEach((message) => {
-       const messageDiv = buildMessageDiv(message);
+      const messageDiv = buildMessageDiv(message);
+      if (message.sscore >= 0.0){
        messageContainer.appendChild(messageDiv);
+       }
+      else{
+       nMessagesContainer.appendChild(messageDiv);
+      }
       });
     });
   }
@@ -47,4 +55,12 @@
   // Fetch data and populate the UI of the page.
   function buildUI(){
    fetchMessages();
+  }
+  //functions to show and hide negative messages
+  function hideNegative(){
+      document.getElementById('n-message-container').style.display='none';
+  }
+
+  function showNegative(){
+      document.getElementById('n-message-container').style.display='block';
   }
