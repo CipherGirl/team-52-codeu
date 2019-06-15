@@ -32,7 +32,9 @@ import org.jsoup.safety.Whitelist;
 import com.google.cloud.language.v1.Document;
 import com.google.cloud.language.v1.LanguageServiceClient;
 import com.google.cloud.language.v1.Sentiment;
-
+//libraries to validate the URL for image Styling (part1)
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 /** Handles fetching and saving {@link Message} instances. */
 
 
@@ -120,8 +122,13 @@ public class MessageServlet extends HttpServlet {
    //printing score
    System.out.println("Score: " + sentiment.getScore());
 
-   //sending message code
-   Message message = new Message(user, text, score);
+ 
+//sending message code //updated message code, including images(part1 ) using regex expression
+  String regex = "(http)?s?:?(\/\/[^"']*\.(?:png|jpg|jpeg|gif|png|svg))";
+String replacement = "<img src=\"$1\" />";
+String textWithImagesReplaced = userText.replaceAll(regex, replacement);
+
+Message message = new Message(user, textWithImagesReplaced ,score);
    datastore.storeMessage(message);
 
    response.sendRedirect("/user-page.html?user=" + user);
