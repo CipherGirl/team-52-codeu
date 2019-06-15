@@ -21,20 +21,84 @@ limitations under the License.
     <title>CodeU 2019 Starter Project</title>
     <link rel="stylesheet" href="/css/main.css">
     <script src="/js/navigation-loader.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
   </head>
   <body onload="addLoginOrLogoutLinkToNavigation();">
-    <nav>
-      <ul id="navigation">
-        <li><a href="/">Home</a></li>
-        <li><a href="/aboutus.html">About Our Team</a></li>
-        <li><a href="/feed.html">Public Feed</a></li>
-      </ul>
-    </nav>
+
+
+  <div id="navigation">
+    <a class="active" href="/">Home</a>
+    <a href="/aboutus.html">About Our Team</a>
+    <a href="/feed.html">Public Feed</a>
+  </div>
+
+  <div class="content">
     <h1>CodeU Starter Project</h1>
     <p>This is the CodeU starter project. Click the links above to login and visit your page.
-    You can post messages on your page, and you can visit other user pages if you have
-    their URL.</p>
+      You can post messages on your page, and you can visit other user pages if you have
+      their URL.</p>
     <p>This is your code now! Feel free to make changes, and don't be afraid to get creative!
-    You could start by modifying this page to tell the world more about your team.</p>
+      You could start by modifying this page to tell the world more about your team.</p>
+    <p>This is the CodeU starter project. Click the links above to login and visit your page.
+      You can post messages on your page, and you can visit other user pages if you have
+      their URL.</p>
+    <p>This is your code now! Feel free to make changes, and don't be afraid to get creative!
+      You could start by modifying this page to tell the world more about your team.</p>
+    <p>This is the CodeU starter project. Click the links above to login and visit your page.
+      You can post messages on your page, and you can visit other user pages if you have
+      their URL.</p>
+    <p>This is your code now! Feel free to make changes, and don't be afraid to get creative!
+      You could start by modifying this page to tell the world more about your team.</p>
+    <p>This is the CodeU starter project. Click the links above to login and visit your page.
+      You can post messages on your page, and you can visit other user pages if you have
+      their URL.</p>
+    <p>This is your code now! Feel free to make changes, and don't be afraid to get creative!
+      You could start by modifying this page to tell the world more about your team.</p>
+    <p>This is the CodeU starter project. Click the links above to login and visit your page.
+      You can post messages on your page, and you can visit other user pages if you have
+      their URL.</p>
+    <p>This is your code now! Feel free to make changes, and don't be afraid to get creative!
+      You could start by modifying this page to tell the world more about your team.</p>
+    <p>This is the CodeU starter project. Click the links above to login and visit your page.
+      You can post messages on your page, and you can visit other user pages if you have
+      their URL.</p>
+    <p>This is your code now! Feel free to make changes, and don't be afraid to get creative!
+      You could start by modifying this page to tell the world more about your team.</p>
+    <p>This is the CodeU starter project. Click the links above to login and visit your page.
+      You can post messages on your page, and you can visit other user pages if you have
+      their URL.</p>
+    <p>This is your code now! Feel free to make changes, and don't be afraid to get creative!
+      You could start by modifying this page to tell the world more about your team.</p>
+    <p>This is the CodeU starter project. Click the links above to login and visit your page.
+      You can post messages on your page, and you can visit other user pages if you have
+      their URL.</p>
+    <p>This is your code now! Feel free to make changes, and don't be afraid to get creative!
+      You could start by modifying this page to tell the world more about your team.</p>
+    <p>This is the CodeU starter project. Click the links above to login and visit your page.
+      You can post messages on your page, and you can visit other user pages if you have
+      their URL.</p>
+    <p>This is your code now! Feel free to make changes, and don't be afraid to get creative!
+      You could start by modifying this page to tell the world more about your team.</p>
+
+
+  </div>
+
+
+  <script>
+window.onscroll = function() {stickAbove()};
+
+var navbar = document.getElementById("navigation");
+var sticky = navbar.offsetTop;
+
+function stickAbove() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+</script>
+
   </body>
 </html>
