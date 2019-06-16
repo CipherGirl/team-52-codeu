@@ -18,6 +18,9 @@
  * Adds a login or logout link to the page, depending on whether the user is
  * already logged in.
  */
+
+
+
 function addLoginOrLogoutLinkToNavigation() {
   const navigationElement = document.getElementById('navigation');
   if (!navigationElement) {
