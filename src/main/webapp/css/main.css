@@ -15,21 +15,7 @@
  */
 
 /* Prevent the page from becoming too wide. */
-/*body {
-  max-width: 600;
-}
 
-/* Remove bullet points from navigation bar. 
-nav ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-/* Keep navigation menu on one line. 
-nav li {
-  display: inline-block;
-  margin-right: 10px
-}*/
 * {
 	margin: 0;
 	padding: 0;
@@ -114,6 +100,7 @@ nav ul li ul li a:hover {
   background-color: yellow;
   text-align: center;
 }
+
 html{
 	stroke-linejoin: smooth;
 }

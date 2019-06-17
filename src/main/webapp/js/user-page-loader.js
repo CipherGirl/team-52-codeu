@@ -56,17 +56,26 @@ function fetchMessages() {
       })
       .then((messages) => {
         const messagesContainer = document.getElementById('message-container');
+        const nMessagesContainer = document.getElementById('n-message-container');
         if (messages.length == 0) {
           messagesContainer.innerHTML = '<p>This user has no posts yet.</p>';
+          nMessagesContainer.innerHTML = '<p>This user has no posts yet.</p>';
         } else {
           messagesContainer.innerHTML = '';
+          nMessagesContainer.innerHTML = '';
         }
         messages.forEach((message) => {
           const messageDiv = buildMessageDiv(message);
-          messagesContainer.appendChild(messageDiv);
+          if (message.sscore >= 0.0){
+            messagesContainer.appendChild(messageDiv);
+          }
+          else{
+            nMessagesContainer.appendChild(messageDiv);
+          }
         });
       });
 }
+
 
 /**
  * Builds an element that displays the message.
@@ -74,10 +83,15 @@ function fetchMessages() {
  * @return {Element}
  */
 function buildMessageDiv(message) {
+  sentiment = ""
+  if (message.sscore >= 0.0) {sentiment = "Positive";}
+  else{sentiment = "Negative";}
+
+
   const headerDiv = document.createElement('div');
   headerDiv.classList.add('message-header');
   headerDiv.appendChild(document.createTextNode(
-      message.user + ' - ' + new Date(message.timestamp)));
+      message.user + ' - ' + new Date(message.timestamp) +"   -- "+ message.sscore));
 
   const bodyDiv = document.createElement('div');
   bodyDiv.classList.add('message-body');
@@ -111,4 +125,12 @@ function fetchAboutMe(){
     aboutMeContainer.innerHTML = aboutMe;
 
   });
+}
+
+function hideNegative(){
+    document.getElementById('n-message-container').style.display='none';
+}
+
+function showNegative(){
+    document.getElementById('n-message-container').style.display='block';
 }

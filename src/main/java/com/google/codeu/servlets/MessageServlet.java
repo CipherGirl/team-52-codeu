@@ -28,6 +28,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
+//sentiment imports
+import com.google.cloud.language.v1.Document;
+import com.google.cloud.language.v1.LanguageServiceClient;
+import com.google.cloud.language.v1.Sentiment;
 
 /** Handles fetching and saving {@link Message} instances. */
 
@@ -106,7 +110,23 @@ public class MessageServlet extends HttpServlet {
 
    String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
 
-   Message message = new Message(user, text);
+   //sentiment detection code
+   Document doc = Document.newBuilder().setContent(text).setType(Document.Type.PLAIN_TEXT).build();
+   LanguageServiceClient languageService = LanguageServiceClient.create();
+   Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
+   double score = sentiment.getScore();
+   languageService.close();
+
+   //printing score
+   System.out.println("Score: " + sentiment.getScore());
+
+   //sending message code //updated message code, including images(part1 ) using regex expression
+  String regex = "(https?://\\S+\\.(png|jpg))";
+String replacement = "<img src=\"$1\" />";
+String textWithImagesReplaced = userText.replaceAll(regex, replacement);
+    
+Message message = new Message(user, textWithImagesReplaced ,score);
+//previous update:  Message message = new Message(user, text, score);
    datastore.storeMessage(message);
 
    response.sendRedirect("/user-page.html?user=" + user);
