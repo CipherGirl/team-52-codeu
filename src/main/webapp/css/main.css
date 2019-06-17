@@ -114,3 +114,6 @@ nav ul li ul li a:hover {
   background-color: yellow;
   text-align: center;
 }
+html{
+	stroke-linejoin: smooth;
+}
