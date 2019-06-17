@@ -101,56 +101,6 @@ nav ul li ul li a:hover {
   text-align: center;
 }
 
-*/
-body {
-  margin: 0;
-  font-size: 18px;
-  font-family: fantasy;
-  background-color:#e6f2ff;
+html{
+	stroke-linejoin: smooth;
 }
-
-
-#navigation {
-  overflow: hidden;
-  background-color: #4d004d;
-  width: 100%;
-}
-
-#navigation a {
-  float: left;
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 25px 25px;
-  text-decoration: none;
-  font-size: 17px;
-  list-style-type: none;
-
-}
-
-#navigation a:hover {
-  background-color: #ff99cc;
-  color: black;
-}
-
-
-#navigation a.active {
-  background-color: #ff0080;
-  color: white;
-}
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background-color: #264d00;
-}
-
-.content{
-  padding-left: 200px;
-  padding-right: 200px;
-}
-
-.sticky + .content {
-  padding-top: 60px;
-}
-
