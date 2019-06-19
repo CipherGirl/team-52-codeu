@@ -122,6 +122,7 @@ public class MessageServlet extends HttpServlet {
    //printing score
    System.out.println("Score: " + sentiment.getScore());
 
+
  
 //sending message code //updated message code, including images(part1 ) using regex expression
   String regex = "(http)?s?:?(\/\/[^"']*\.(?:png|jpg|jpeg|gif|png|svg))";
@@ -129,6 +130,7 @@ String replacement = "<img src=\"$1\" />";
 String textWithImagesReplaced = userText.replaceAll(regex, replacement);
 
 Message message = new Message(user, textWithImagesReplaced ,score);
+
    datastore.storeMessage(message);
 
    response.sendRedirect("/user-page.html?user=" + user);
