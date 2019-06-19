@@ -125,7 +125,8 @@ public class MessageServlet extends HttpServlet {
 
  
 //sending message code //updated message code, including images(part1 ) using regex expression
-  String regex = "(http)?s?:?(\/\/[^"']*\.(?:png|jpg|jpeg|gif|png|svg))";
+  String regex = "(http)?s?:?(\/\/[^"']*\.(?:png|jpg|jpeg|gif|png|svg|mp4))";
+
 String replacement = "<img src=\"$1\" />";
 String textWithImagesReplaced = userText.replaceAll(regex, replacement);
 
