@@ -109,8 +109,8 @@ public class MessageServlet extends HttpServlet {
 
    String user = userService.getCurrentUser().getEmail();
 
+String userText = Jsoup.clean(request.getParameter("text"), Whitelist.none());
 
-   String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
 
    //sentiment detection code
    Document doc = Document.newBuilder().setContent(text).setType(Document.Type.PLAIN_TEXT).build();
