@@ -17,7 +17,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import com.google.codeu.data.Datastore;
+import com.google.codeu.data.Image;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 /**
  * When the user submits the form, Blobstore processes the file upload
  * and then forwards the request to this servlet. This servlet can then
@@ -25,25 +28,50 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/my-form-handler")
 public class FormHandlerServlet extends HttpServlet {
+  private Datastore datastore;
 
+  @Override
+  public void init() {
+
+    datastore = new Datastore();
+
+  }
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
     // Get the message entered by the user.
     String message = request.getParameter("message");
 
+
+    UserService userService = UserServiceFactory.getUserService();
+    if (!userService.isUserLoggedIn()) {
+      response.sendRedirect("/index.html");
+      return;
+    }
+
+    String user = userService.getCurrentUser().getEmail();
     // Get the URL of the image that the user uploaded to Blobstore.
     String imageUrl = getUploadedFileUrl(request, "image");
 
     // Output some HTML that shows the data the user entered.
     // A real codebase would probably store these in Datastore.
+
     ServletOutputStream out = response.getOutputStream();
+
+    Image image = new Image(user, imageUrl);
+
+    datastore.storeImage(image);
+
     out.println("<p>Here's the image you uploaded:</p>");
+
     out.println("<a href=\"" + imageUrl + "\">");
     out.println("<img src=\"" + imageUrl + "\" />");
     out.println("</a>");
-    out.println("<p>Here's the text you entered:</p>");
-    out.println(message);
+    if(message != "" && message != null){
+      //out.println("<p>Here's the text you entered:</p>");
+      out.println(message);
+    }
+
   }
 
   /**
