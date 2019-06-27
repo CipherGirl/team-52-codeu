@@ -49,7 +49,7 @@ public class Datastore {
     System.out.println("Message entity is: "+ messageEntity);
   }
 
-    public void storeImage(Image image){
+  public void storeImage(Image image){
         Entity imageEntity = new Entity("Image", image.getImageId().toString());
         imageEntity.setProperty("user", image.getImageUser());
         imageEntity.setProperty("url", image.getImageURL() );
@@ -93,6 +93,33 @@ public class Datastore {
       return messages;
   }
 
+  public List<Image> getImagesforquery(Query query) {
+
+      List<Image> images = new ArrayList<>();
+      PreparedQuery results = datastore.prepare(query);
+
+      for (Entity entity : results.asIterable()) {
+          try {
+              String idString = entity.getKey().getName();
+              UUID id = UUID.fromString(idString);
+              String user = (String) entity.getProperty("user");
+              String url = (String) entity.getProperty("url");
+
+
+              Image image = new Image(id, user, url);
+              //System.out.println("Image is: " + image);
+              images.add(image);
+          } catch (Exception e) {
+              System.err.println("Error reading image.");
+              System.err.println(entity.toString());
+              e.printStackTrace();
+          }
+      }
+      return images;
+  }
+
+
+
   public List<Message> getMessages(String user) {
     Query query =
         new Query("Message")
@@ -108,6 +135,20 @@ public class Datastore {
 
       return getMessagesforquery(query); //getMessagesforquery() returns List<Message>
   }
+
+  public List<Image> getImages(String user) {
+    Query query =
+        new Query("Image")
+            .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user));
+
+
+    return getImagesforquery(query); //getMessagesforquery() returns List<Message>
+  }
+
+
+
+
+
   public Set<String> getUsers(){
         Set<String> users = new HashSet<>();
         Query query = new Query("Message");

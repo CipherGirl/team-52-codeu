@@ -78,6 +78,29 @@ function fetchMessages() {
       });
 }
 
+function fetchImages(){
+    const addr =  '_ah/upload/ahJzdTE5LWNvZGV1LTUyLTMxNzlyIgsSFV9fQmxvYlVwbG9hZFNlc3Npb25fXxiAgICAgID6CQw';
+    fetch(addr)
+          .then((response) => {
+            return response.json();
+          })
+          .then((imgs) => {
+            const imagesContainer = document.getElementById('img-container');
+            if (imgs.length == 0) {
+                      imagesContainer.innerHTML = '<p>This user has no pictures yet.</p>';
+
+                    } else {
+                      imagesContainer.innerHTML = '';
+
+                    }
+                    imgs.forEach((image) => {
+                        imagesContainer.innerHTML = 'YASSSSSSSS';
+                    });
+
+          });
+
+}
+
 
 /**
  * Builds an element that displays the message.
@@ -113,6 +136,7 @@ function buildUI() {
   showMessageFormIfViewingSelf();
   fetchMessages();
   fetchAboutMe();
+  fetchImages();
 }
 function fetchAboutMe(){
   const url = '/about?user=' + parameterUsername;
