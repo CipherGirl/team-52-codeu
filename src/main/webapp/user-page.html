@@ -19,11 +19,36 @@ limitations under the License.
   <head>
     <title>User Page</title>
     <meta charset="UTF-8">
+    <script src="/image-up.jsp"></script>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/user-page.css">
     <script src="/js/user-page-loader.js"></script>
+    <script>
+      function fetchBlobstoreUrlAndShowForm() {
+        fetch('/blobstore-upload-url')
+          .then((response) => {
+            return response.text();
+          })
+          .then((imageUploadUrl) => {
+            const messageForm = document.getElementById('my-form');
+            messageForm.action = imageUploadUrl;
+            messageForm.classList.remove('hidden');
+          });
+      }
+
+      function forOnload(){
+         buildUI();
+         fetchBlobstoreUrlAndShowForm();
+      }
+    </script>
+    <style>
+      /* Form is hidden by default. */
+      .hidden {
+        display: none;
+      }
+    </style>
   </head>
-  <body onload="buildUI();">
+  <body onload="forOnload();">
     <nav>
       <ul id="navigation">
         <li><a href="/">Home</a></li>
@@ -49,6 +74,17 @@ limitations under the License.
       <input type="submit" value="Submit">
     </form>
     <hr/>
+
+
+    <p>Upload an image:</p>
+
+    <form id="my-form" class="hidden" method="POST" enctype="multipart/form-data">
+      <textarea name="message"></textarea>
+      <br/>
+      <input type="file" name="image">
+      <br/><br/>
+      <button>Submit</button>
+    </form>
 
     <button onclick="hideNegative()">Hide Negative Messages</button>
     <button onclick="showNegative()">Show Negative Messages</button>
