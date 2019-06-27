@@ -49,6 +49,17 @@ public class Datastore {
     System.out.println("Message entity is: "+ messageEntity);
   }
 
+    public void storeImage(Image image){
+        Entity imageEntity = new Entity("Image", image.getImageId().toString());
+        imageEntity.setProperty("user", image.getImageUser());
+        imageEntity.setProperty("url", image.getImageURL() );
+
+
+
+        datastore.put(imageEntity);
+        System.out.println("image entity is: "+ imageEntity);
+    }
+
   /**
    * Gets messages posted by a specific user.
    *
@@ -114,7 +125,7 @@ public class Datastore {
   userEntity.setProperty("aboutMe", user.getAboutMe());
   datastore.put(userEntity);
  }
- 
+
  /**
   * Returns the User owned by the email address, or
   * null if no matching User was found.
@@ -140,6 +151,8 @@ public int getTotalMessageCount(){
   PreparedQuery results = datastore.prepare(query);
   return results.countEntities(FetchOptions.Builder.withLimit(1000));
 }
+
+
   
 }
 
