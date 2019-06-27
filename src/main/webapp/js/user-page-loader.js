@@ -94,7 +94,8 @@ function fetchImages(){
 
             }
             imgs.forEach((image) => {
-            imagesContainer.innerHTML = image.url;
+            const imageDiv = buildImageDiv(image);
+            imagesContainer.appendChild(imageDiv);
             });
 
           });
@@ -129,6 +130,30 @@ function buildMessageDiv(message) {
 
   return messageDiv;
 }
+
+function buildImageDiv(image) {
+
+
+
+  const headerDiv = document.createElement('div');
+  headerDiv.classList.add('image-header');
+  headerDiv.appendChild(document.createTextNode(
+      image.user + ' - ' + new Date(image.timestamp)));
+
+  const bodyDiv = document.createElement('div');
+  bodyDiv.classList.add('image-body');
+
+
+  bodyDiv.innerHTML = image.url;
+
+  const imageDiv = document.createElement('div');
+  imageDiv.classList.add('image-div');
+  imageDiv.appendChild(headerDiv);
+  imageDiv.appendChild(bodyDiv);
+
+  return imageDiv;
+}
+
 
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
