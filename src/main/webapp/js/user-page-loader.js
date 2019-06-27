@@ -79,7 +79,7 @@ function fetchMessages() {
 }
 
 function fetchImages(){
-    const addr =  '_ah/upload/ahJzdTE5LWNvZGV1LTUyLTMxNzlyIgsSFV9fQmxvYlVwbG9hZFNlc3Npb25fXxiAgICAgID6CQw';
+    const addr =  '/get-images';
     fetch(addr)
           .then((response) => {
             return response.json();
@@ -89,13 +89,13 @@ function fetchImages(){
             if (imgs.length == 0) {
                       imagesContainer.innerHTML = '<p>This user has no pictures yet.</p>';
 
-                    } else {
+            } else {
                       imagesContainer.innerHTML = '';
 
-                    }
-                    imgs.forEach((image) => {
-                        imagesContainer.innerHTML = 'YASSSSSSSS';
-                    });
+            }
+            imgs.forEach((image) => {
+            imagesContainer.innerHTML = image.url;
+            });
 
           });
 

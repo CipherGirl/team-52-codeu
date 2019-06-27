@@ -66,7 +66,7 @@ public class FormHandlerServlet extends HttpServlet {
 
     datastore.storeImage(image);
 
-    //response.sendRedirect("/user-page.html?user=" + user);
+    response.sendRedirect("/user-page.html?user=" + user);
 
     //out.println("<a href=\"" + imageUrl + "\">");
     //out.println("<img src=\"" + imageUrl + "\" />");
@@ -77,11 +77,8 @@ public class FormHandlerServlet extends HttpServlet {
       //out.println(message);
    // }
 
-    List<Image> images = datastore.getImages(user);
-    Gson gson = new Gson();
-    String json = gson.toJson(images);
-    response.getWriter().println(json);
 
+//gonna come here
 
 
 
