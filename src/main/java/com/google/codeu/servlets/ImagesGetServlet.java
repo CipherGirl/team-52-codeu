@@ -14,14 +14,13 @@ import com.google.codeu.data.Datastore;
 import com.google.codeu.data.Image;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
-/**
- * When the fetch() function requests the /blobstore-upload-url URL, the content of the
- * response is the URL that allows a user to upload a file to Blobstore.
- * If this sounds confusing, try running a devserver and navigating to /blobstore-upload-url
- * to see the Blobstore URL.
- */
-@WebServlet("/blobstore-upload-url")
-public class BlobstoreUploadUrlServlet extends HttpServlet {
+
+
+
+
+
+@WebServlet("/get-images")
+public class ImagesGetServlet extends HttpServlet {
     private Datastore datastore;
 
     @Override
@@ -33,12 +32,16 @@ public class BlobstoreUploadUrlServlet extends HttpServlet {
     public String uploadUrl = "";
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
-        uploadUrl = blobstoreService.createUploadUrl("/my-form-handler") ;
 
-        response.setContentType("text/html");
-        response.getOutputStream().println(uploadUrl);
-        //System.out.println("Upload url: "+ uploadUrl);
+
+        UserService userService = UserServiceFactory.getUserService();
+
+        String user = userService.getCurrentUser().getEmail();
+        response.setContentType("application/json");
+        List<Image> images = datastore.getImages(user);
+        Gson gson = new Gson();
+        String json = gson.toJson(images);
+        response.getWriter().println(json);
 
 
     }

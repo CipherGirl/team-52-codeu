@@ -78,6 +78,30 @@ function fetchMessages() {
       });
 }
 
+function fetchImages(){
+    const addr =  '/get-images';
+    fetch(addr)
+          .then((response) => {
+            return response.json();
+          })
+          .then((imgs) => {
+            const imagesContainer = document.getElementById('img-container');
+            if (imgs.length == 0) {
+                      imagesContainer.innerHTML = '<p>This user has no pictures yet.</p>';
+
+            } else {
+                      imagesContainer.innerHTML = '';
+
+            }
+            imgs.forEach((image) => {
+            const imageDiv = buildImageDiv(image);
+            imagesContainer.appendChild(imageDiv);
+            });
+
+          });
+
+}
+
 
 /**
  * Builds an element that displays the message.
@@ -107,12 +131,37 @@ function buildMessageDiv(message) {
   return messageDiv;
 }
 
+function buildImageDiv(image) {
+
+
+
+  const headerDiv = document.createElement('div');
+  headerDiv.classList.add('image-header');
+  headerDiv.appendChild(document.createTextNode(
+      image.user + ' - ' + new Date(image.timestamp)));
+
+  const bodyDiv = document.createElement('div');
+  bodyDiv.classList.add('image-body');
+
+
+  bodyDiv.innerHTML = image.url;
+
+  const imageDiv = document.createElement('div');
+  imageDiv.classList.add('image-div');
+  imageDiv.appendChild(headerDiv);
+  imageDiv.appendChild(bodyDiv);
+
+  return imageDiv;
+}
+
+
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
   setPageTitle();
   showMessageFormIfViewingSelf();
   fetchMessages();
   fetchAboutMe();
+  fetchImages();
 }
 function fetchAboutMe(){
   const url = '/about?user=' + parameterUsername;
