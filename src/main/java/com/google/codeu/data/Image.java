@@ -31,6 +31,15 @@ public class Image {
 
     }
 
+    public Image(UUID id, String user, String url) {
+        this.id = id;
+        this.user = user;
+        this.url = url;
+
+
+
+    }
+
 
     public UUID getImageId() {
         return id;
