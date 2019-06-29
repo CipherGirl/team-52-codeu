@@ -162,6 +162,7 @@ function buildUI() {
   fetchMessages();
   fetchAboutMe();
   fetchImages();
+  ClassicEditor.create( document.getElementById('message-input') );
 }
 function fetchAboutMe(){
   const url = '/about?user=' + parameterUsername;
