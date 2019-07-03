@@ -44,6 +44,7 @@ public class Datastore {
     messageEntity.setProperty("text", message.getText());
     messageEntity.setProperty("timestamp", message.getTimestamp());
     messageEntity.setProperty("sentimentscore", message.getSscore());
+    messageEntity.setProperty("groupId", message.getGroupId());
     System.out.println("sentiment score is :  "+ message.getSscore());
     datastore.put(messageEntity);
     System.out.println("Message entity is: "+ messageEntity);
@@ -143,6 +144,48 @@ public class Datastore {
 
 
     return getImagesforquery(query); //getMessagesforquery() returns List<Message>
+  }
+
+  public List<Message> getGroupMessagesforquery(Query query){
+      List<Message> gmessages = new ArrayList<>();
+      PreparedQuery results = datastore.prepare(query);
+
+      for (Entity entity : results.asIterable()) {
+          try {
+              String idString = entity.getKey().getName();
+              UUID id = UUID.fromString(idString);
+              String user = (String) entity.getProperty("user");
+              String text = (String) entity.getProperty("text");
+              long timestamp = (long) entity.getProperty("timestamp");
+
+              String groupId = (String) entity.getProperty("groupId");
+              Message gmessage = new Message(id, user, text, groupId, timestamp);
+              //System.out.println("message is: " + message);
+              gmessages.add(gmessage);
+          } catch (Exception e) {
+              System.err.println("Error reading message.");
+              System.err.println(entity.toString());
+              e.printStackTrace();
+          }
+      }
+
+      return gmessages;
+  }
+
+  public List<Message> getGroupMessages(String user) {
+        Query query =
+                new Query("Message")
+                        .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user))
+                        .addSort("timestamp", SortDirection.DESCENDING);
+
+        return getGroupMessagesforquery(query); //getMessagesforquery() returns List<Message>
+  }
+
+  public List<Message> getAllGroupMessages(){
+        Query query = new Query("Message")
+                .addSort("timestamp", SortDirection.DESCENDING);
+
+        return getGroupMessagesforquery(query); //getMessagesforquery() returns List<Message>
   }
 
 
