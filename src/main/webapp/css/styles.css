@@ -5,7 +5,7 @@
 
 .project-name {
     text-align: center; 
-    margin-top: 100px; 
+    margin-top: 0px; 
 }
 
 .navbar { 
@@ -46,6 +46,7 @@
 }
 
 .flip-card {
+  border-radius: 25px;
   background-color: transparent;
   width: 250px;
   height: 250px;
@@ -55,6 +56,7 @@
 
 /* This container is needed to position the front and back side */
 .flip-card-inner {
+    border-radius: 25px;
   position: relative;
   width: 100%;
   height: 100%;
@@ -70,6 +72,7 @@
 
 /* Position the front and back side */
 .flip-card-front, .flip-card-back {
+    border-radius: 25px;
   position: absolute;
   width: 100%;
   height: 100%;
@@ -78,13 +81,15 @@
 
 /* Style the front side (fallback if image is missing) */
 .flip-card-front {
+    border-radius: 25px;
   background-color: #bbb;
   color: black;
 }
 
 /* Style the back side */
 .flip-card-back {
-  background-color: dodgerblue;
+    border-radius: 25px;
+  background-color: rgb(26, 18, 22);
   color: white;
   transform: rotateY(180deg);
 }
@@ -93,6 +98,11 @@
 }
 .team h1{
     text-align: center;
+}
+.relative {
+  position: relative;
+  left: 30px;
+  
 }
 section {
     float: left; 
