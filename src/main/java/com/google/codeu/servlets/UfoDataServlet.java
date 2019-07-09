@@ -1,4 +1,4 @@
-package io.happycoding.servlets;
+/* package io.happycoding.servlets;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -12,12 +12,13 @@ import java.util.Scanner;
 
 /**
  * Returns UFO data as a JSON array, e.g. [{"lat": 38.4404675, "lng": -122.7144313}]
- */
-@WebServlet("/ufo-data")
+ *///...........
+ /*
+@WebServlet("/webapp/WEB-INF/ufo-data")
 public class UfoDataServlet extends HttpServlet {
 
-  private JsonArray ufoSightingArray;
-
+  private JsonArray ufoSightingArray; */
+/*
   @Override
   public void init() {
     ufoSightingArray = new JsonArray();
@@ -52,4 +53,4 @@ public class UfoDataServlet extends HttpServlet {
     }
   }
 }
-}
+} */
