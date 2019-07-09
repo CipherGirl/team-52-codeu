@@ -41,7 +41,7 @@
     background-color: pink;
 }
 
-.tutorial h1 {
+.tutorial{
     text-align: center; 
 }
 
@@ -100,6 +100,10 @@
     text-align: center;
 }
 .relative {
+  margin-top:50px;
+  margin-bottom:50px;
+  margin-left:50px;
+  margin-right:50px;
   position: relative;
   left: 30px;
   
