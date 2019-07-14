@@ -108,6 +108,14 @@
   left: 30px;
   
 }
+
+.ourwork {
+    margin-right:50px;
+    margin-left:50px;
+    background-color:rgba(214, 213, 213, 0.973);
+    text-align:center;
+     position: relative;
+}
 section {
     float: left; 
     width: 100%; 
