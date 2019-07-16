@@ -3,6 +3,7 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.codeu.data.Datastore;
 import com.google.codeu.data.Message;
+import com.google.codeu.data.Group;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.List;
@@ -39,11 +40,11 @@ public class chatServlet extends HttpServlet {
 
         response.setContentType("application/json");
 
-        List<Message> gmessages = datastore.getAllGroupMessages();
+        List<Group> gmessages = datastore.getAllGroupMessages();
         Gson gson = new Gson();
         String json = gson.toJson(gmessages);
 
-        response.getOutputStream().println("HALOOOOOOOO");
+       // response.getOutputStream().println("HALOOOOOOOO");
 
     }
 
@@ -79,8 +80,9 @@ public class chatServlet extends HttpServlet {
 
         //change code for group
         Message gmessage = new Message(user, textWithImagesReplaced ,groupId);
+        Group groupmess = new Group(user, textWithImagesReplaced ,groupId);
 
-
+        datastore.storeGroupMessage(groupmess);
         datastore.storeMessage(gmessage);
 
         response.sendRedirect("/group.html");

@@ -50,6 +50,19 @@ public class Datastore {
     System.out.println("Message entity is: "+ messageEntity);
   }
 
+    public void storeGroupMessage(Group gmessage) {
+        Entity gmessageEntity = new Entity("Group", gmessage.getId().toString());
+        gmessageEntity.setProperty("user", gmessage.getUser());
+        gmessageEntity.setProperty("text", gmessage.getText());
+        gmessageEntity.setProperty("timestamp", gmessage.getTimestamp());
+
+        gmessageEntity.setProperty("groupId", gmessage.getGroupId());
+
+        datastore.put(gmessageEntity);
+        System.out.println("Group entity is: "+ gmessageEntity);
+    }
+
+
   public void storeImage(Image image){
         Entity imageEntity = new Entity("Image", image.getImageId().toString());
         imageEntity.setProperty("user", image.getImageUser());
@@ -146,8 +159,8 @@ public class Datastore {
     return getImagesforquery(query); //getMessagesforquery() returns List<Message>
   }
 
-  public List<Message> getGroupMessagesforquery(Query query){
-      List<Message> gmessages = new ArrayList<>();
+  public List<Group> getGroupMessagesforquery(Query query){
+      List<Group> gmessages = new ArrayList<>();
       PreparedQuery results = datastore.prepare(query);
 
       for (Entity entity : results.asIterable()) {
@@ -159,7 +172,7 @@ public class Datastore {
               long timestamp = (long) entity.getProperty("timestamp");
 
               String groupId = (String) entity.getProperty("groupId");
-              Message gmessage = new Message(id, user, text, groupId, timestamp);
+              Group gmessage = new Group(id, user, text, groupId, timestamp);
               //System.out.println("message is: " + message);
               gmessages.add(gmessage);
           } catch (Exception e) {
@@ -172,17 +185,17 @@ public class Datastore {
       return gmessages;
   }
 
-  public List<Message> getGroupMessages(String user) {
+  public List<Group> getGroupMessages(String user) {
         Query query =
-                new Query("Message")
+                new Query("Group")
                         .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user))
                         .addSort("timestamp", SortDirection.DESCENDING);
 
         return getGroupMessagesforquery(query); //getMessagesforquery() returns List<Message>
   }
 
-  public List<Message> getAllGroupMessages(){
-        Query query = new Query("Message")
+  public List<Group> getAllGroupMessages(){
+        Query query = new Query("Group")
                 .addSort("timestamp", SortDirection.DESCENDING);
 
         return getGroupMessagesforquery(query); //getMessagesforquery() returns List<Message>
