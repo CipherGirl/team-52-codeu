@@ -1,0 +1,23 @@
+.message-div {
+  border: thin solid black;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+/* Add a bottom border to the message header. */
+.message-header {
+  border-bottom: thin solid black;
+  padding: 5px;
+}
+
+/* Give the message body a margin so the text
+   isn't too close to the border. */
+.message-body {
+  margin: 5px;
+}
+/* stylling image*/
+.message-body img {
+  display: block;
+  margin-top: 25px;
+  max-width: 75%;
+}
