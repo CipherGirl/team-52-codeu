@@ -16,29 +16,26 @@
 
  package com.google.codeu.servlets;
  import com.google.appengine.api.users.UserService;
- import com.google.appengine.api.users.UserServiceFactory;
- import com.google.codeu.data.Datastore;
- import com.google.codeu.data.Message;
- import com.google.gson.Gson;
- import java.io.IOException;
- import java.util.List;
- import javax.servlet.annotation.WebServlet;
- import javax.servlet.http.HttpServlet;
- import javax.servlet.http.HttpServletRequest;
- import javax.servlet.http.HttpServletResponse;
- import org.jsoup.Jsoup;
- import org.jsoup.safety.Whitelist;
- //sentiment imports
- import com.google.cloud.language.v1.Document;
- import com.google.cloud.language.v1.LanguageServiceClient;
- import com.google.cloud.language.v1.Sentiment;
- //libraries to validate the URL for image Styling (part1)
- import java.util.regex.Matcher;
- import java.util.regex.Pattern;
+import com.google.appengine.api.users.UserServiceFactory;
+import com.google.cloud.language.v1.Document;
+import com.google.cloud.language.v1.LanguageServiceClient;
+import com.google.cloud.language.v1.Sentiment;
+import com.google.codeu.data.Datastore;
+import com.google.codeu.data.Message;
+import com.google.gson.Gson;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
+
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+
+//sentiment imports
+//libraries to validate the URL for image Styling (part1)
 //Styled Text Part1 Imports
-import org.commonmark.node.*;
-import org.commonmark.parser.Parser;
-import org.commonmark.renderer.html.HtmlRenderer;
 
 
  /** Handles fetching and saving {@link Message} instances. */
@@ -97,7 +94,7 @@ public class MessageServlet extends HttpServlet {
    }
 
    String user = userService.getCurrentUser().getEmail();
-   String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
+   String text = Jsoup.clean(request.getParameter("text"), Whitelist.basicWithImages());
 
 
 
@@ -111,11 +108,11 @@ public class MessageServlet extends HttpServlet {
    //printing score
    System.out.println("Score: " + sentiment.getScore());
 
-   //Styled Text Part 1 (MOW)
-   Parser parser = Parser.builder().build();
-   Node document = parser.parse(text);
-   HtmlRenderer renderer = HtmlRenderer.builder().build();
-   text = renderer.render(document);  // "<p>This is <em>Sparta</em></p>\n"
+   //Styled Text Part 1 (MOW) [NOT NEEDED IN STYLED TEXT PART 2]
+//   Parser parser = Parser.builder().build();
+//   Node document = parser.parse(text);
+//   HtmlRenderer renderer = HtmlRenderer.builder().build();
+//   text = renderer.render(document);  // "<p>This is <em>Sparta</em></p>\n"
 
 
    //sending message code //updated message code, including images(part1 ) using regex expression
