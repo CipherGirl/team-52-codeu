@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Message Feed</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/group-page.css">
+    <link rel="stylesheet" href="/css/main.css">
+
+    <script src="/js/group-loader.js"></script>
+</head>
+<body onload="buildUI()">
+<nav>
+    <ul id="navigation">
+        <li><a href="/">Home</a></li>
+        <li><a href="/aboutus.html">About Our Team</a></li>
+    </ul>
+</nav>
+<h1 id="page-title">Group</h1>
+
+
+
+<form id="group-message-form" action="/group" method="POST"  >
+    Enter a new message:
+    <br/>
+
+    <input type="grouptext" name="grouptext" id="group-message-input">
+    <br/>
+    <input type="groupid" name="groupid" placeholder="add groupid" rows=1  id="groupidspace">
+
+    <br/>
+    <input type="submit" value="Submit">
+</form>
+<hr/>
+
+<hr/>
+
+<div id="group-message-container">Loading...</div>
+
+
+</body>
+</html>

@@ -44,10 +44,24 @@ public class Datastore {
     messageEntity.setProperty("text", message.getText());
     messageEntity.setProperty("timestamp", message.getTimestamp());
     messageEntity.setProperty("sentimentscore", message.getSscore());
+    messageEntity.setProperty("groupId", message.getGroupId());
     System.out.println("sentiment score is :  "+ message.getSscore());
     datastore.put(messageEntity);
     System.out.println("Message entity is: "+ messageEntity);
   }
+
+    public void storeGroupMessage(Group gmessage) {
+        Entity gmessageEntity = new Entity("Group", gmessage.getId().toString());
+        gmessageEntity.setProperty("user", gmessage.getUser());
+        gmessageEntity.setProperty("text", gmessage.getText());
+        gmessageEntity.setProperty("timestamp", gmessage.getTimestamp());
+
+        gmessageEntity.setProperty("groupId", gmessage.getGroupId());
+
+        datastore.put(gmessageEntity);
+        System.out.println("Group entity is: "+ gmessageEntity);
+    }
+
 
   public void storeImage(Image image){
         Entity imageEntity = new Entity("Image", image.getImageId().toString());
@@ -143,6 +157,48 @@ public class Datastore {
 
 
     return getImagesforquery(query); //getMessagesforquery() returns List<Message>
+  }
+
+  public List<Group> getGroupMessagesforquery(Query query){
+      List<Group> gmessages = new ArrayList<>();
+      PreparedQuery results = datastore.prepare(query);
+
+      for (Entity entity : results.asIterable()) {
+          try {
+              String idString = entity.getKey().getName();
+              UUID id = UUID.fromString(idString);
+              String user = (String) entity.getProperty("user");
+              String text = (String) entity.getProperty("text");
+              long timestamp = (long) entity.getProperty("timestamp");
+
+              String groupId = (String) entity.getProperty("groupId");
+              Group gmessage = new Group(id, user, text, groupId, timestamp);
+              //System.out.println("message is: " + message);
+              gmessages.add(gmessage);
+          } catch (Exception e) {
+              System.err.println("Error reading message.");
+              System.err.println(entity.toString());
+              e.printStackTrace();
+          }
+      }
+
+      return gmessages;
+  }
+
+  public List<Group> getGroupMessages(String user) {
+        Query query =
+                new Query("Group")
+                        .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user))
+                        .addSort("timestamp", SortDirection.DESCENDING);
+
+        return getGroupMessagesforquery(query); //getMessagesforquery() returns List<Message>
+  }
+
+  public List<Group> getAllGroupMessages(){
+        Query query = new Query("Group")
+                .addSort("timestamp", SortDirection.DESCENDING);
+
+        return getGroupMessagesforquery(query); //getMessagesforquery() returns List<Message>
   }
 
 

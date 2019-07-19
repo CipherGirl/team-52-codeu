@@ -26,6 +26,7 @@ public class Message {
   private String text;
   private long timestamp;
   private double sscore;
+  private String groupId;
 
   /**
    * Constructs a new {@link Message} posted by {@code user} with {@code text} content. Generates a
@@ -58,6 +59,19 @@ public class Message {
 
   }
 
+  public Message(UUID id, String user, String text,String groupId, long timestamp) {
+    this.id = id;
+    this.user = user;
+    this.text = text;
+    this.timestamp = timestamp;
+    this.groupId = groupId;
+
+
+  }
+  public Message(String user, String text, String groupId) {
+    this(UUID.randomUUID(), user, text, groupId, System.currentTimeMillis());
+  }
+
   public UUID getId() {
     return id;
   }
@@ -76,5 +90,9 @@ public class Message {
 
   public double getSscore() {
     return sscore;
+  }
+
+  public String getGroupId() {
+    return groupId;
   }
 }
