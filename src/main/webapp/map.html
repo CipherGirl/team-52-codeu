@@ -13,16 +13,21 @@
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
+
         height: 100%;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
+          background-color: black
         height: 100%;
         margin: 10px;
         padding: 10px;
       }
     
     </style>
+     <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQXYu4K8XDljKN4GuHkCbz8Y3BpjkZW5c&callback=initMap">
+    </script>
   </head>
   <body>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -114,8 +119,6 @@
         infoWindow.open(map);
       }
     </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQXYu4K8XDljKN4GuHkCbz8Y3BpjkZW5c&callback=initMap">
-    </script>
+   
   </body>
 </html>
