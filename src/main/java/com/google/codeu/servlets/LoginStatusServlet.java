@@ -16,36 +16,42 @@
 
 package com.google.codeu.servlets;
 
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.JsonObject;
 
-import java.io.IOException;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Returns login data as JSON, e.g. {"isLoggedIn": true, "username": "alovelace@codeustudents.com"}
  */
-@WebServlet("/login-status")
+@WebServlet(urlPatterns = {"/login-status"})
 public class LoginStatusServlet extends HttpServlet {
 
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
+          throws ServletException, IOException {
+    doPost(request, response);
+  }
+
+  public void doPost(HttpServletRequest request, HttpServletResponse response)
+          throws ServletException, IOException {
+    //String email = (String) request.getAttribute("userEmail");
+    String email = request.getParameter("userEmail");
     JsonObject jsonObject = new JsonObject();
-
-    UserService userService = UserServiceFactory.getUserService();
-    if (userService.isUserLoggedIn()) {
-      jsonObject.addProperty("isLoggedIn", true);
-      jsonObject.addProperty("username", userService.getCurrentUser().getEmail());
-    } else {
-      jsonObject.addProperty("isLoggedIn", false);
-    }
-
+    //jsonObject = (JsonObject) request.getAttribute("json_login");
+//    if (email!=null) {
+//      jsonObject.addProperty("isLoggedIn", true);
+//      jsonObject.addProperty("username", email);
+//    } else {
+//      jsonObject.addProperty("isLoggedIn", false);
+//    }
+//    //PrintWriter out = response.getWriter();
     response.setContentType("application/json");
     response.getWriter().println(jsonObject.toString());
+    System.out.println("In the login-Servlet");
   }
 }
