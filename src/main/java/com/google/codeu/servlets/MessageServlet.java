@@ -108,12 +108,6 @@ public class MessageServlet extends HttpServlet {
    //printing score
    System.out.println("Score: " + sentiment.getScore());
 
-   //Styled Text Part 1 (MOW) [NOT NEEDED IN STYLED TEXT PART 2]
-//   Parser parser = Parser.builder().build();
-//   Node document = parser.parse(text);
-//   HtmlRenderer renderer = HtmlRenderer.builder().build();
-//   text = renderer.render(document);  // "<p>This is <em>Sparta</em></p>\n"
-
 
    //sending message code //updated message code, including images(part1 ) using regex expression
    String regex = "(https?://\\S+\\.(png|jpg|jpeg|gif|png|svg|mp4))";

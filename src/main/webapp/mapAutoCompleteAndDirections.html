@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>Place Autocomplete and Directions</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="/js/navigation-loader.js"></script>
+
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -57,31 +63,112 @@
         font-weight: 300;
       }
 
+
     </style>
-  </head>
-  <body>
-    <div style="display: none">
-        <input id="origin-input" class="controls" type="text"
-            placeholder="Enter an origin location">
+</head>
+<body onload="addLoginOrLogoutLinkToNavigation();">
+<!--Navigation Bar Starts-->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 
-        <input id="destination-input" class="controls" type="text"
-            placeholder="Enter a destination location">
+<nav class="navbar navbar-expand-lg navbar-toggleable-md navbar-light bg-light" id="navigation">
 
-        <div id="mode-selector" class="controls">
-          <input type="radio" name="type" id="changemode-walking" checked="checked">
-          <label for="changemode-walking">Walking</label>
+    <a class="navbar-brand" href="/">ConnectU</a>
 
-          <input type="radio" name="type" id="changemode-transit">
-          <label for="changemode-transit">Transit</label>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-          <input type="radio" name="type" id="changemode-driving">
-          <label for="changemode-driving">Driving</label>
-        </div>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/index.html#info">Home <span class="sr-only">(current)</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/Tutorial.html">Tutorial</a>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="/index.html#team" id="navbarDropdownMenuLink"
+                   data-hover="dropdown" aria-haspopup="true" aria-expanded="false">
+                    About Our Team
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="PAInfo.html">Project Advisor</a>
+                    <a class="dropdown-item" href="#team">Hasna Hena Mow</a>
+                    <a class="dropdown-item" href="#team">Rabeya Noor</a>
+                    <a class="dropdown-item" href="#team">Maria Asghar</a>
+                    <a class="dropdown-item" href="#team">Asmany Akter</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/feed.html">Public feed</a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="/chat.html">Discussion</a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="/mapAutoCompleteAndDirections.html"> Map </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/activity.html"> Charts </a>
+            </li>
+        </ul>
+
+        <!--User Page NavBar Items-->
+
+        <ul class="nav navbar-nav ml-auto data" id="user">
+            <li class="nav-item dropdown ">
+                <a class="nav-link dropdown-toggle navbarDropdownMenuLink" id="yourPage" data-hover="dropdown"
+                   aria-haspopup="true" aria-expanded="false" style="display:none;">
+                    Your Page
+                </a>
+                <div class="dropdown-menu hide" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" id="settings" href="#">Settings</a>
+                    <div class="dropdown-divider"></div>
+                    <a id="logoutbtn" class="dropdown-item" href="#">Logout</a>
+                </div>
+            </li>
+        </ul>
     </div>
+</nav>
 
-    <div id="map"></div>
+<!-- Navigation Bar Ends-->
+<div style="display: none">
+    <input id="origin-input" class="controls" type="text"
+           placeholder="Enter an origin location">
 
-    <script>
+    <input id="destination-input" class="controls" type="text"
+           placeholder="Enter a destination location">
+
+    <div id="mode-selector" class="controls">
+        <input type="radio" name="type" id="changemode-walking" checked="checked">
+        <label for="changemode-walking">Walking</label>
+
+        <input type="radio" name="type" id="changemode-transit">
+        <label for="changemode-transit">Transit</label>
+
+        <input type="radio" name="type" id="changemode-driving">
+        <label for="changemode-driving">Driving</label>
+    </div>
+</div>
+
+<div id="map"></div>
+
+<script>
 // This example requires the Places library. Include the libraries=places
 // parameter when you first load the API. For example:
 // <script
@@ -190,8 +277,9 @@ AutocompleteDirectionsHandler.prototype.route = function() {
       });
 };
 
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD63mNLt4-WPWkgnGPLO3TPtRbzz8-W1UE&libraries=places&callback=initMap"
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD63mNLt4-WPWkgnGPLO3TPtRbzz8-W1UE&libraries=places&callback=initMap"
         async defer></script>
-  </body>
+</body>
 </html>
