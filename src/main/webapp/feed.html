@@ -3,12 +3,16 @@
 <head>
     <title>Message Feed</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <!--<link rel="stylesheet" href="/css/styles.css">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/styles.css">
 
     <script src="/js/feed-loader.js"></script>
+    <script src="/js/navigation-loader.js"></script>
 
-     <style>
+
+    <style>
       /* Form is hidden by default. */
       .design{
           margin-left: 50px;
@@ -21,31 +25,35 @@
       }
     </style>
     </head>
-    <body class="design"  onload="buildUI()">
+    <body onload="buildUI(); addLoginOrLogoutLinkToNavigation();">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navigation">
+    <!--Navigation Bar Starts-->
+
+    <nav class="navbar navbar-expand-lg navbar-toggleable-md navbar-light bg-light" id="navigation">
 
         <a class="navbar-brand" href="/">ConnectU</a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="/index.html#info">Home <span class="sr-only">(current)</span></a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="Tutorial.html">Tutorial</a>
+                    <a class="nav-link" href="/Tutorial.html">Tutorial</a>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="/index.html#team" id="navbarDropdownMenuLink" data-hover="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="/index.html#team" id="navbarDropdownMenuLink"
+                       data-hover="dropdown" aria-haspopup="true" aria-expanded="false">
                         About Our Team
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -59,15 +67,42 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/feed.html">Public feed</a>
                 </li>
+
+
                 <li class="nav-item">
-                    <a class="nav-link" href="/map.html"> Map </a>
+                    <a class="nav-link" href="/chat.html">Discussion</a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/mapAutoCompleteAndDirections.html"> Map </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/activity.html"> Charts </a>
+                </li>
+            </ul>
+
+            <!--User Page NavBar Items-->
+
+            <ul class="nav navbar-nav ml-auto data" id="user">
+                <li class="nav-item dropdown ">
+                    <a class="nav-link dropdown-toggle navbarDropdownMenuLink" id="yourPage" data-hover="dropdown"
+                       aria-haspopup="true" aria-expanded="false" style="display:none;">
+                        Your Page
+                    </a>
+                    <div class="dropdown-menu hide" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" id="settings" href="#">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a id="logoutbtn" class="dropdown-item" href="#">Logout</a>
+                    </div>
                 </li>
             </ul>
         </div>
     </nav>
 
-    <!-- Navigation bar ends  -->
-    <div id="content">
+    <!-- Navigation Bar Ends-->
+
+    <div class="design" id="content">
         <h1>Message Feed</h1>
         <hr/>
 
