@@ -26,7 +26,6 @@
     });
   }
 
-
   function buildMessageDiv(message){
    const usernameDiv = document.createElement('div');
    usernameDiv.classList.add("left-align");
