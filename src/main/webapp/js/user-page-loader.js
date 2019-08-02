@@ -137,21 +137,15 @@ function buildImageDiv(image) {
 
   const headerDiv = document.createElement('div');
   headerDiv.classList.add('image-header');
-  headerDiv.appendChild(document.createTextNode(
-      image.user + ' - ' + new Date(image.timestamp)));
+  
+  var x = document.createElement("IMG");
+  x.setAttribute("src", image.url);
+  x.setAttribute("width", "304");
+  x.setAttribute("height", "228");
 
-  const bodyDiv = document.createElement('div');
-  bodyDiv.classList.add('image-body');
+  headerDiv.appendChild(x);
 
-
-  bodyDiv.innerHTML = image.url;
-
-  const imageDiv = document.createElement('div');
-  imageDiv.classList.add('image-div');
-  imageDiv.appendChild(headerDiv);
-  imageDiv.appendChild(bodyDiv);
-
-  return imageDiv;
+  return headerDiv;
 }
 
 
